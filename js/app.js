@@ -50,10 +50,10 @@ function actualizarReloj() {
   const ahora = new Date();
   const hh = String(ahora.getHours()).padStart(2, '0');
   const mm = String(ahora.getMinutes()).padStart(2, '0');
-  clockEl.textContent = `${hh}:${mm}`;
+  clockEl.textContent = hh + ':' + mm;
 }
 actualizarReloj();
-setInterval(actualizarReloj, 15000); // cada 15 s es suficiente
+setInterval(actualizarReloj, 15000);
 
 // ================================================================
 // 1. VERSÍCULOS (cambio diario)
@@ -105,14 +105,13 @@ function renderVersiculo() {
   const v = versiculoDelDia();
   verseText.style.opacity = '0';
   setTimeout(() => {
-    verseText.textContent = `“${v.texto}”`;
-    verseRef.textContent  = `— ${v.ref}`;
+    verseText.textContent = '"' + v.texto + '"';
+    verseRef.textContent  = '— ' + v.ref;
     verseText.style.opacity = '1';
   }, 250);
 }
 renderVersiculo();
 
-// Rota el versículo a medianoche (comprobación cada 60 s)
 setInterval(() => {
   const ahora = new Date();
   if (ahora.getHours() === 0 && ahora.getMinutes() === 0) renderVersiculo();
@@ -126,15 +125,13 @@ function initEqRing() {
   eqRing.innerHTML = '';
   eqBars = [];
   const total = 48;
-  const radius = 96; // radio en px del centro al inicio de cada barra
+  const radius = 96;
 
   for (let i = 0; i < total; i++) {
     const angle = (i / total) * 360;
     const bar = document.createElement('div');
     bar.className = 'eq-bar';
-
-    // Posicionar cada barra alrededor del centro
-    bar.style.transform = `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px)`;
+    bar.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) translateY(-' + radius + 'px)';
     eqRing.appendChild(bar);
     eqBars.push(bar);
   }
@@ -142,7 +139,7 @@ function initEqRing() {
 initEqRing();
 
 // ================================================================
-// 3. VISUALIZADOR (analiza y actualiza barras + anillo progreso)
+// 3. VISUALIZADOR
 // ================================================================
 function initAudioContext() {
   if (audioCtx) return;
@@ -164,7 +161,6 @@ function animate() {
   const data = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(data);
 
-  // Actualizar barras del ecualizador circular
   const step = Math.floor(data.length / eqBars.length);
   for (let i = 0; i < eqBars.length; i++) {
     let sum = 0;
@@ -174,7 +170,6 @@ function animate() {
     eqBars[i].style.height = h + 'px';
   }
 
-  // Actualizar el anillo de progreso (simula progreso con la energía media)
   if (ringProgress) {
     let totalE = 0;
     for (let i = 0; i < data.length; i++) totalE += data[i];
@@ -218,7 +213,6 @@ async function togglePlay() {
     await audio.play();
   } catch (err) {
     console.warn('Error al reproducir, reintentando:', err);
-    // Segundo intento tras breve espera (a veces falla por autoplay policy)
     setTimeout(() => {
       audio.play().catch(e => console.error('Reintento falló:', e));
     }, 800);
@@ -227,14 +221,13 @@ async function togglePlay() {
 
 btnPlay.addEventListener('click', togglePlay);
 
-// -------- Sincronización con eventos del audio --------
 audio.addEventListener('play', () => {
   isPlaying = true;
   btnPlay.classList.add('playing');
   btnPlay.classList.remove('loading');
-  ringOuter?.classList.add('playing');
+  if (ringOuter) ringOuter.classList.add('playing');
   playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-  liveChip?.classList.add('on');
+  if (liveChip) liveChip.classList.add('on');
   startViz();
   actualizarAhoraSuena();
 });
@@ -243,9 +236,9 @@ audio.addEventListener('pause', () => {
   isPlaying = false;
   btnPlay.classList.remove('playing');
   btnPlay.classList.remove('loading');
-  ringOuter?.classList.remove('playing');
+  if (ringOuter) ringOuter.classList.remove('playing');
   playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-  liveChip?.classList.remove('on');
+  if (liveChip) liveChip.classList.remove('on');
   stopViz();
 });
 
@@ -254,38 +247,44 @@ audio.addEventListener('playing', () => btnPlay.classList.remove('loading'));
 audio.addEventListener('error', (e) => {
   console.warn('Error de audio:', e);
   btnPlay.classList.remove('loading');
-  liveChip?.classList.remove('on');
+  if (liveChip) liveChip.classList.remove('on');
 });
 
 // ================================================================
 // 5. VOLUMEN + MUTE
 // ================================================================
-btnVolume?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  volumePop.classList.toggle('open');
-});
+if (btnVolume) {
+  btnVolume.addEventListener('click', (e) => {
+    e.stopPropagation();
+    volumePop.classList.toggle('open');
+  });
+}
 
 document.addEventListener('click', (e) => {
-  if (!volumePop?.contains(e.target) && e.target !== btnVolume) {
-    volumePop?.classList.remove('open');
+  if (volumePop && !volumePop.contains(e.target) && e.target !== btnVolume) {
+    volumePop.classList.remove('open');
   }
 });
 
-volumeSlider?.addEventListener('input', () => {
-  audio.volume = parseFloat(volumeSlider.value);
-  if (audio.volume > 0 && isMuted) {
-    isMuted = false;
-    btnMute?.classList.remove('muted');
+if (volumeSlider) {
+  volumeSlider.addEventListener('input', () => {
+    audio.volume = parseFloat(volumeSlider.value);
+    if (audio.volume > 0 && isMuted) {
+      isMuted = false;
+      if (btnMute) btnMute.classList.remove('muted');
+      actualizarIconoMute();
+    }
+  });
+}
+
+if (btnMute) {
+  btnMute.addEventListener('click', () => {
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    btnMute.classList.toggle('muted', isMuted);
     actualizarIconoMute();
-  }
-});
-
-btnMute?.addEventListener('click', () => {
-  isMuted = !isMuted;
-  audio.muted = isMuted;
-  btnMute.classList.toggle('muted', isMuted);
-  actualizarIconoMute();
-});
+  });
+}
 
 function actualizarIconoMute() {
   if (!muteIcon) return;
@@ -299,7 +298,6 @@ function actualizarIconoMute() {
 // ================================================================
 function parseSong(raw) {
   if (!raw) return { artist: 'Radio Gracia y Paz', title: 'Transmisión en vivo' };
-  // Formato típico: "Artista - Título"
   let partes = raw.split(' - ');
   if (partes.length >= 2) {
     return { artist: partes[0].trim(), title: partes.slice(1).join(' - ').trim() };
@@ -312,11 +310,11 @@ function parseSong(raw) {
 }
 
 function buscarCaratula(artist, title) {
-  const q = encodeURIComponent(`${artist} ${title}`);
-  return fetch(`${ITUNES_API}?term=${q}&entity=song&limit=1`)
+  const q = encodeURIComponent(artist + ' ' + title);
+  return fetch(ITUNES_API + '?term=' + q + '&entity=song&limit=1')
     .then(r => r.json())
     .then(data => {
-      if (data.results?.[0]?.artworkUrl100) {
+      if (data.results && data.results[0] && data.results[0].artworkUrl100) {
         return data.results[0].artworkUrl100.replace('100x100', '600x600');
       }
       return null;
@@ -332,34 +330,32 @@ function actualizarAhoraSuena() {
       if (raw === currentSongKey) return;
       currentSongKey = raw;
 
-      const { artist, title } = parseSong(raw);
-      if (songTitle)  songTitle.textContent  = title  || '—';
-      if (songArtist) songArtist.textContent = artist || 'Radio Gracia y Paz';
+      const parsed = parseSong(raw);
+      if (songTitle)  songTitle.textContent  = parsed.title  || '—';
+      if (songArtist) songArtist.textContent = parsed.artist || 'Radio Gracia y Paz';
 
-      buscarCaratula(artist, title).then(url => {
+      buscarCaratula(parsed.artist, parsed.title).then(url => {
         if (url && discCover) discCover.src = url;
       });
     })
-    .catch(() => { /* silencioso */ });
+    .catch(() => {});
 }
 
-// Polling de metadatos cada 15 s mientras suena
 setInterval(() => { if (isPlaying) actualizarAhoraSuena(); }, 15000);
 
 // ================================================================
-// 7. OYENTES (contador simple — puedes conectarlo a una API real)
+// 7. OYENTES
 // ================================================================
 function actualizarOyentes() {
   if (!listenersEl) return;
-  // Simulación suave: número aleatorio entre 40 y 120
   const n = 40 + Math.floor(Math.random() * 80);
-  listenersEl.textContent = `${n}`;
+  listenersEl.textContent = n.toString();
 }
 actualizarOyentes();
 setInterval(actualizarOyentes, 30000);
 
 // ================================================================
-// 8. MEDIA SESSION API (controles en pantalla de bloqueo / auriculares)
+// 8. MEDIA SESSION API
 // ================================================================
 if ('mediaSession' in navigator) {
   navigator.mediaSession.metadata = new MediaMetadata({
@@ -381,9 +377,9 @@ if ('mediaSession' in navigator) {
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
   if (e.code === 'Space')     { e.preventDefault(); togglePlay(); }
-  if (e.code === 'ArrowUp')   { e.preventDefault(); audio.volume = Math.min(1, audio.volume + 0.1); volumeSlider.value = audio.volume; }
-  if (e.code === 'ArrowDown') { e.preventDefault(); audio.volume = Math.max(0, audio.volume - 0.1); volumeSlider.value = audio.volume; }
-  if (e.code === 'KeyM')      { btnMute?.click(); }
+  if (e.code === 'ArrowUp')   { e.preventDefault(); audio.volume = Math.min(1, audio.volume + 0.1); if (volumeSlider) volumeSlider.value = audio.volume; }
+  if (e.code === 'ArrowDown') { e.preventDefault(); audio.volume = Math.max(0, audio.volume - 0.1); if (volumeSlider) volumeSlider.value = audio.volume; }
+  if (e.code === 'KeyM')      { if (btnMute) btnMute.click(); }
 });
 
 // ================================================================
