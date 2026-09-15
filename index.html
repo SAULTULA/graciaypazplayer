@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Radio Gracia y Paz — Transmitiendo esperanza las 24 horas. Música cristiana, mensajes y paz para tu vida.">
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./logo-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Gracia y Paz">
+
+  <title>Radio Gracia y Paz — Esperanza las 24 horas</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+  <!-- FONDO ANIMADO CON ORBES -->
+  <div class="bg-layer">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="bg-noise"></div>
+
+  <!-- BOTÓN INSTALAR APP -->
+  <button id="btnInstall" class="btn-install" hidden>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+      <path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/>
+    </svg>
+    <span>Instalar App</span>
+  </button>
+
+  <!-- REPRODUCTOR PRINCIPAL -->
+  <main class="player">
+    <!-- ENCABEZADO -->
+    <header class="player-header">
+      <div class="logo-mini">
+        <img src="./logo.png" alt="Gracia y Paz" onerror="this.style.display='none'">
+      </div>
+      <div class="station-info">
+        <h1 class="station-name">Radio Gracia y Paz</h1>
+        <p class="station-tag">Esperanza · Fe · Música</p>
+      </div>
+      <div class="live-dot" id="liveDot" title="En vivo"></div>
+    </header>
+
+    <!-- ÁREA PRINCIPAL: CARÁTULA + INFO -->
+    <section class="now-playing">
+      <div class="cover-wrap">
+        <div class="cover-glow"></div>
+        <img src="./logo.png" alt="Cover" class="cover" id="vinylCover"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%231e293b%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2258%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2360a5fa%22%3E♪%3C/text%3E%3C/svg%3E'">
+        <div class="cover-ring"></div>
+      </div>
+
+      <div class="track-info">
+        <p class="track-label">Sonando ahora</p>
+        <h2 class="track-title" id="songTitle">Conectando...</h2>
+        <p class="track-artist" id="songArtist">Radio Gracia y Paz</p>
+      </div>
+    </section>
+
+    <!-- VISUALIZADOR WAVEFORM -->
+    <section class="viz-wrap">
+      <canvas id="waveform" class="waveform"></canvas>
+    </section>
+
+    <!-- CONTROLES PRINCIPALES -->
+    <section class="controls-main">
+      <button class="btn-side" id="btnMute" aria-label="Silenciar">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" id="muteIcon">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </button>
+
+      <button class="btn-play" id="btnPlay" aria-label="Reproducir">
+        <div class="play-ring"></div>
+        <div class="spinner"></div>
+        <svg viewBox="0 0 24 24" id="playIcon" class="icon-play">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      <button class="btn-side" id="btnVolume" aria-label="Volumen">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+      </button>
+
+      <!-- SLIDER DE VOLUMEN (barra horizontal) -->
+      <div class="volume-slider-wrap" id="volumePop">
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
+      </div>
+    </section>
+
+    <!-- TICKER DE VERSÍCULOS -->
+    <section class="verse-section">
+      <div class="verse-label">✝ Versículo del día</div>
+      <div class="ticker-wrap">
+        <div class="ticker-text" id="tickerText">Cargando versículo...</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="player-footer">
+      <span>Gracia y Paz · Transmitiendo Esperanza</span>
+    </footer>
+  </main>
+
+  <!-- AUDIO OCULTO -->
+  <audio id="audioPlayer" preload="none" crossorigin="anonymous">
+    <!-- ⚠️ REEMPLAZA ESTA URL POR LA DE TU STREAM -->
+    <source src="https://stream.zeno.fm/75fyk31hk48uv" type="audio/mpeg">
+  </audio>
+
+  <script src="./js/app.js"></script>
+  <script src="./js/pwa.js"></script>
+</body>
+</html>
