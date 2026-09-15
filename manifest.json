@@ -7,8 +7,8 @@
   "id": "/graciaypazplayer/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#071114",
-  "theme_color": "#071114",
+  "background_color": "#0a0518",
+  "theme_color": "#0a0518",
   "lang": "es",
   "dir": "ltr",
   "categories": ["music", "entertainment", "religion", "lifestyle"],
@@ -30,6 +30,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./screenpc.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Radio Gracia y Paz en tu escritorio"
+    },
+    {
+      "src": "./screenmobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Radio Gracia y Paz en tu celular"
     }
   ]
 }
