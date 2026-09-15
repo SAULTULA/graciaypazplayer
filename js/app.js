@@ -3,8 +3,8 @@
    ================================================================== */
 
 // -------- CONFIGURACIÓN (ajusta aquí) --------
-const STREAM_URL    = 'https://stream.zeno.fm/75fyk31hk48uv'; // ← REEMPLAZA
-const ZENO_MOUNT    = '75fyk31hk48uv';                        // ← REEMPLAZA
+const STREAM_URL    = 'https://stream.zeno.fm/mfer4shs398uv'; // ← REEMPLAZA
+const ZENO_MOUNT    = 'mfer4shs398uv';                        // ← REEMPLAZA
 const API_URL       = `https://api.zeno.fm/mounts/metadata/subscribe/${ZENO_MOUNT}`;
 const ITUNES_API    = 'https://itunes.apple.com/search';
 
