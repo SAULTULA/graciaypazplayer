@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#0a1a1f">
   <meta name="description" content="Radio Gracia y Paz — Transmitiendo esperanza las 24 horas. Música cristiana, mensajes y paz para tu vida.">
 
   <!-- PWA -->
   <link rel="manifest" href="./manifest.json">
-  <link rel="apple-touch-icon" href="./logo-192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./image/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./image/icon-512.png">
+  <link rel="apple-touch-icon" href="./image/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,7 +21,7 @@
 </head>
 <body>
 
-  <!-- FONDO ANIMADO CON ORBES -->
+  <!-- FONDO ANIMADO -->
   <div class="bg-layer">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -35,12 +37,11 @@
     <span>Instalar App</span>
   </button>
 
-  <!-- REPRODUCTOR PRINCIPAL -->
+  <!-- REPRODUCTOR -->
   <main class="player">
-    <!-- ENCABEZADO -->
     <header class="player-header">
       <div class="logo-mini">
-        <img src="./logo.png" alt="Gracia y Paz" onerror="this.style.display='none'">
+        <img src="./image/logo.png" alt="Gracia y Paz">
       </div>
       <div class="station-info">
         <h1 class="station-name">Radio Gracia y Paz</h1>
@@ -49,12 +50,11 @@
       <div class="live-dot" id="liveDot" title="En vivo"></div>
     </header>
 
-    <!-- ÁREA PRINCIPAL: CARÁTULA + INFO -->
     <section class="now-playing">
       <div class="cover-wrap">
         <div class="cover-glow"></div>
-        <img src="./logo.png" alt="Cover" class="cover" id="vinylCover"
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%231e293b%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2258%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2360a5fa%22%3E♪%3C/text%3E%3C/svg%3E'">
+        <img src="./image/logo.png" alt="Cover" class="cover" id="vinylCover"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%231e293b%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2258%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%235eead4%22%3E♪%3C/text%3E%3C/svg%3E'">
         <div class="cover-ring"></div>
       </div>
 
@@ -65,12 +65,10 @@
       </div>
     </section>
 
-    <!-- VISUALIZADOR WAVEFORM -->
     <section class="viz-wrap">
       <canvas id="waveform" class="waveform"></canvas>
     </section>
 
-    <!-- CONTROLES PRINCIPALES -->
     <section class="controls-main">
       <button class="btn-side" id="btnMute" aria-label="Silenciar">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" id="muteIcon">
@@ -92,13 +90,11 @@
         </svg>
       </button>
 
-      <!-- SLIDER DE VOLUMEN (barra horizontal) -->
       <div class="volume-slider-wrap" id="volumePop">
         <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.8">
       </div>
     </section>
 
-    <!-- TICKER DE VERSÍCULOS -->
     <section class="verse-section">
       <div class="verse-label">✝ Versículo del día</div>
       <div class="ticker-wrap">
@@ -106,15 +102,30 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER CORPORATIVO KSM -->
     <footer class="player-footer">
-      <span>Gracia y Paz · Transmitiendo Esperanza</span>
+      <a class="ksm-brand" href="https://ksmservicios.com.ar" target="_blank" rel="noopener">
+        <img src="./image/ksm.png" alt="KSM Servicios" class="ksm-logo" onerror="this.style.display='none'">
+        <span class="ksm-name">ksmservicios.com.ar</span>
+      </a>
+
+      <a class="btn-wa" 
+         href="https://wa.me/5490000000000?text=Hola%20KSM%20Servicios,%20quiero%20contratar%20una%20web%20para%20mi%20radio" 
+         target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M20.52 3.48A11.9 11.9 0 0 0 12.05 0C5.5 0 .2 5.3.2 11.85c0 2.09.55 4.13 1.6 5.93L0 24l6.4-1.68a11.86 11.86 0 0 0 5.65 1.44h.01c6.55 0 11.85-5.3 11.85-11.85 0-3.17-1.23-6.15-3.39-8.43zM12.06 21.8h-.01a9.85 9.85 0 0 1-5.02-1.38l-.36-.21-3.8 1 1.02-3.7-.23-.38a9.83 9.83 0 0 1-1.5-5.28c0-5.44 4.42-9.86 9.87-9.86 2.63 0 5.1 1.03 6.96 2.9a9.8 9.8 0 0 1 2.88 6.97c0 5.44-4.42 9.85-9.85 9.85zm5.4-7.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.64-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.34.44-.51.15-.17.2-.29.3-.49.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.19-.24-.57-.48-.5-.66-.5-.17-.01-.37-.01-.56-.01-.2 0-.51.07-.78.37-.27.3-1.02 1-1.02 2.43 0 1.43 1.05 2.82 1.2 3.02.15.2 2.07 3.16 5.01 4.43.7.3 1.25.48 1.68.62.7.22 1.35.19 1.86.12.57-.08 1.75-.71 2-1.4.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/>
+        </svg>
+        <span>Contratar por WhatsApp</span>
+      </a>
+
+      <p class="copyright">
+        © <span id="year"></span> Radio Gracia y Paz · Diseñado por 
+        <a href="https://ksmservicios.com.ar" target="_blank" rel="noopener">KSM Servicios</a>
+      </p>
     </footer>
   </main>
 
-  <!-- AUDIO OCULTO -->
   <audio id="audioPlayer" preload="none" crossorigin="anonymous">
-    <!-- ⚠️ REEMPLAZA ESTA URL POR LA DE TU STREAM -->
     <source src="https://stream.zeno.fm/mfer4shs398uv" type="audio/mpeg">
   </audio>
 

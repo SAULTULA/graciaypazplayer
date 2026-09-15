@@ -1,29 +1,26 @@
 /* ==================================================================
    RADIO GRACIA Y PAZ — Estilos principales
-   Estilo: Glassmorphism moderno con acentos azul/violeta
    ================================================================== */
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg-deep: #0a0e1a;
-  --bg-card: rgba(20, 30, 55, 0.55);
-  --bg-card-hover: rgba(30, 45, 80, 0.7);
+  --bg-deep: #071114;
+  --bg-card: rgba(18, 38, 45, 0.55);
+  --mint: #5eead4;
+  --mint-bright: #99f6e4;
+  --lavender: #a78bfa;
+  --lavender-deep: #8b5cf6;
+  --cyan: #22d3ee;
 
-  --sky: #60a5fa;
-  --sky-bright: #93c5fd;
-  --violet: #a78bfa;
-  --violet-deep: #8b5cf6;
+  --text: #f0fdfa;
+  --text-dim: #7c8d94;
+  --text-soft: #b8d0d6;
 
-  --text: #f1f5f9;
-  --text-dim: #94a3b8;
-  --text-soft: #cbd5e1;
-
-  --border: rgba(148, 163, 184, 0.15);
+  --border: rgba(94, 234, 212, 0.15);
   --glass: blur(24px) saturate(180%);
   --radius-lg: 28px;
   --radius-md: 18px;
-  --radius-sm: 12px;
 }
 
 body {
@@ -34,56 +31,55 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   padding: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---- FONDO CON ORBES ANIMADOS ---- */
+/* ---- FONDO ORBES ---- */
 .bg-layer {
   position: fixed;
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: radial-gradient(ellipse at top, #131b30 0%, #050810 60%, #02030a 100%);
+  background: radial-gradient(ellipse at top left, #0d262b 0%, #050d10 60%, #020507 100%);
 }
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
-  animation: floatOrb 18s ease-in-out infinite;
+  filter: blur(90px);
+  opacity: 0.4;
+  animation: floatOrb 20s ease-in-out infinite;
 }
 .orb-1 {
-  width: 380px; height: 380px;
-  background: radial-gradient(circle, #3b82f6, transparent 70%);
-  top: -120px; left: -100px;
-  animation-delay: 0s;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #14b8a6, transparent 70%);
+  top: -140px; left: -100px;
 }
 .orb-2 {
-  width: 320px; height: 320px;
+  width: 340px; height: 340px;
   background: radial-gradient(circle, #8b5cf6, transparent 70%);
-  bottom: -100px; right: -80px;
-  animation-delay: -6s;
+  bottom: -120px; right: -100px;
+  animation-delay: -7s;
 }
 .orb-3 {
-  width: 280px; height: 280px;
+  width: 300px; height: 300px;
   background: radial-gradient(circle, #06b6d4, transparent 70%);
-  top: 40%; left: 60%;
-  animation-delay: -12s;
+  top: 45%; left: 55%;
+  animation-delay: -13s;
 }
 @keyframes floatOrb {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33%      { transform: translate(30px, -40px) scale(1.1); }
-  66%      { transform: translate(-20px, 30px) scale(0.95); }
+  33%      { transform: translate(40px, -50px) scale(1.15); }
+  66%      { transform: translate(-25px, 35px) scale(0.9); }
 }
 .bg-noise {
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -97,29 +93,28 @@ body {
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  background: linear-gradient(135deg, var(--sky), var(--violet-deep));
-  color: #fff;
-  font-weight: 600;
+  background: linear-gradient(135deg, var(--mint), var(--cyan));
+  color: #052025;
+  font-weight: 700;
   font-size: 0.78rem;
   letter-spacing: 0.3px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  box-shadow: 0 6px 25px rgba(96, 165, 250, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  box-shadow: 0 6px 25px rgba(94, 234, 212, 0.4), 0 0 0 1px rgba(255,255,255,0.15) inset;
   transition: all 0.3s ease;
   animation: installPulse 2.4s ease-in-out infinite;
 }
 .btn-install:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 35px rgba(96, 165, 250, 0.55);
+  box-shadow: 0 10px 35px rgba(94, 234, 212, 0.6);
 }
-.btn-install:active { transform: scale(0.97); }
 @keyframes installPulse {
-  0%, 100% { box-shadow: 0 6px 25px rgba(96, 165, 250, 0.35), 0 0 0 0 rgba(96, 165, 250, 0.55); }
-  50%      { box-shadow: 0 6px 25px rgba(96, 165, 250, 0.35), 0 0 0 12px rgba(96, 165, 250, 0); }
+  0%, 100% { box-shadow: 0 6px 25px rgba(94, 234, 212, 0.4), 0 0 0 0 rgba(94, 234, 212, 0.55); }
+  50%      { box-shadow: 0 6px 25px rgba(94, 234, 212, 0.4), 0 0 0 12px rgba(94, 234, 212, 0); }
 }
 
-/* ---- PLAYER PRINCIPAL ---- */
+/* ---- PLAYER ---- */
 .player {
   position: relative;
   z-index: 2;
@@ -133,8 +128,8 @@ body {
   padding: 22px 22px 18px;
   box-shadow:
     0 30px 80px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 1px 0 rgba(255,255,255,0.08) inset;
   text-align: center;
 }
 
@@ -147,43 +142,37 @@ body {
   text-align: left;
 }
 .logo-mini {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   overflow: hidden;
   flex-shrink: 0;
-  background: linear-gradient(135deg, var(--sky), var(--violet-deep));
+  background: linear-gradient(135deg, var(--mint), var(--lavender-deep));
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+  box-shadow: 0 4px 18px rgba(94, 234, 212, 0.35);
 }
-.logo-mini img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.logo-mini img { width: 100%; height: 100%; object-fit: cover; }
 .station-info { flex: 1; min-width: 0; }
 .station-name {
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.2px;
-  color: var(--text);
-  margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 2px;
 }
 .station-tag {
-  font-size: 0.65rem;
-  letter-spacing: 1.5px;
+  font-size: 0.62rem;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--text-dim);
   font-weight: 500;
 }
 .live-dot {
-  width: 10px;
-  height: 10px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   background: #64748b;
   flex-shrink: 0;
@@ -191,7 +180,6 @@ body {
 }
 .live-dot.on {
   background: #22c55e;
-  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
   animation: livePulse 1.8s infinite;
 }
 @keyframes livePulse {
@@ -217,33 +205,28 @@ body {
   position: absolute;
   inset: -20px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(96, 165, 250, 0.4), transparent 70%);
+  background: radial-gradient(circle, rgba(94, 234, 212, 0.4), transparent 70%);
   opacity: 0;
   transition: opacity 0.5s;
   pointer-events: none;
 }
 .player.playing .cover-glow { opacity: 1; }
 .cover {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   border-radius: 24px;
   object-fit: cover;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
   background: #1e293b;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.06) inset;
   position: relative;
   z-index: 1;
   transition: transform 0.5s ease;
 }
-.player.playing .cover {
-  transform: scale(1.02);
-}
+.player.playing .cover { transform: scale(1.02); }
 .cover-ring {
   position: absolute;
   inset: -8px;
   border-radius: 32px;
-  border: 1px solid rgba(96, 165, 250, 0.2);
+  border: 1px solid rgba(94, 234, 212, 0.25);
   opacity: 0;
   transition: opacity 0.5s;
   pointer-events: none;
@@ -257,19 +240,18 @@ body {
   50%      { inset: -14px; opacity: 0.2; }
 }
 
-.track-info { text-align: center; width: 100%; }
+.track-info { width: 100%; }
 .track-label {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--sky);
+  color: var(--mint);
   font-weight: 600;
   margin-bottom: 6px;
 }
 .track-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--text);
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
@@ -294,8 +276,7 @@ body {
   justify-content: center;
 }
 .waveform {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   display: block;
 }
 
@@ -309,8 +290,7 @@ body {
   position: relative;
 }
 .btn-side {
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
@@ -323,21 +303,20 @@ body {
   backdrop-filter: blur(10px);
 }
 .btn-side:hover {
-  background: rgba(96, 165, 250, 0.12);
-  border-color: rgba(96, 165, 250, 0.4);
-  color: var(--sky-bright);
+  background: rgba(94, 234, 212, 0.12);
+  border-color: rgba(94, 234, 212, 0.4);
+  color: var(--mint-bright);
   transform: translateY(-2px);
 }
 .btn-side:active { transform: scale(0.92); }
 .btn-side.muted { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
 
-/* BOTÓN PLAY CENTRAL */
+/* BOTÓN PLAY */
 .btn-play {
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 72px; height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--sky) 0%, var(--violet-deep) 100%);
+  background: linear-gradient(135deg, var(--mint) 0%, var(--lavender-deep) 100%);
   border: none;
   cursor: pointer;
   color: #fff;
@@ -345,20 +324,17 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 10px 35px rgba(96, 165, 250, 0.4),
+    0 10px 35px rgba(94, 234, 212, 0.4),
     0 0 0 1px rgba(255, 255, 255, 0.15) inset;
   transition: all 0.3s ease;
 }
 .btn-play:hover {
   transform: scale(1.06);
-  box-shadow:
-    0 15px 45px rgba(96, 165, 250, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  box-shadow: 0 15px 45px rgba(94, 234, 212, 0.6);
 }
 .btn-play:active { transform: scale(0.95); }
 .btn-play svg {
-  width: 30px;
-  height: 30px;
+  width: 30px; height: 30px;
   fill: #fff;
   position: relative;
   z-index: 2;
@@ -368,7 +344,7 @@ body {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 2px solid rgba(96, 165, 250, 0.4);
+  border: 2px solid rgba(94, 234, 212, 0.5);
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -391,20 +367,16 @@ body {
 }
 .btn-play.loading .spinner { display: block; }
 .btn-play.loading svg { opacity: 0.2; }
-.btn-play .icon-play,
-.btn-play .icon-pause {
-  transition: opacity 0.2s;
-}
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* ---- SLIDER DE VOLUMEN HORIZONTAL ---- */
+/* ---- VOLUMEN ---- */
 .volume-slider-wrap {
   position: absolute;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(8px);
   padding: 12px 18px;
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(10, 25, 30, 0.95);
   backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -432,49 +404,43 @@ body {
 .volume-slider-wrap input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 16px; height: 16px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--sky), var(--violet-deep));
+  background: linear-gradient(135deg, var(--mint), var(--lavender-deep));
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(96, 165, 250, 0.6);
+  box-shadow: 0 0 10px rgba(94, 234, 212, 0.6);
 }
 .volume-slider-wrap input[type="range"]::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 16px; height: 16px;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--sky), var(--violet-deep));
+  background: linear-gradient(135deg, var(--mint), var(--lavender-deep));
   cursor: pointer;
 }
 
-/* ---- VERSÍCULO / TICKER ---- */
+/* ---- VERSÍCULO ---- */
 .verse-section {
-  background: rgba(96, 165, 250, 0.05);
-  border: 1px solid rgba(96, 165, 250, 0.15);
+  background: rgba(94, 234, 212, 0.05);
+  border: 1px solid rgba(94, 234, 212, 0.15);
   border-radius: var(--radius-md);
   padding: 12px 14px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  text-align: left;
 }
 .verse-label {
   font-size: 0.6rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--sky);
+  color: var(--mint);
   font-weight: 600;
   margin-bottom: 6px;
-  text-align: left;
 }
-.ticker-wrap {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
+.ticker-wrap { width: 100%; overflow: hidden; position: relative; }
 .ticker-text {
   display: inline-block;
   white-space: nowrap;
   padding-left: 100%;
-  animation: ticker 32s linear infinite;
+  animation: ticker 40s linear infinite;
   font-size: 0.78rem;
   font-family: 'Georgia', serif;
   font-style: italic;
@@ -486,14 +452,66 @@ body {
   100% { transform: translateX(-100%); }
 }
 
-/* ---- FOOTER ---- */
+/* ---- FOOTER KSM ---- */
 .player-footer {
-  font-size: 0.58rem;
-  color: var(--text-dim);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding-top: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
 }
+.ksm-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: opacity 0.25s;
+}
+.ksm-brand:hover { opacity: 0.75; }
+.ksm-logo {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+}
+.ksm-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--mint);
+  letter-spacing: 0.3px;
+}
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  transition: all 0.25s ease;
+}
+.btn-wa:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+}
+.copyright {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.3px;
+  text-align: center;
+  line-height: 1.4;
+}
+.copyright a {
+  color: var(--mint);
+  text-decoration: none;
+  font-weight: 600;
+}
+.copyright a:hover { text-decoration: underline; }
 
 /* ---- RESPONSIVE ---- */
 @media (max-width: 420px) {
@@ -505,4 +523,5 @@ body {
   .controls-main { gap: 14px; }
   .btn-install { top: 12px; right: 12px; padding: 8px 12px; font-size: 0.72rem; }
   .viz-wrap { height: 40px; margin: 12px 0 16px; }
+  .ticker-text { animation-duration: 32s; }
 }
